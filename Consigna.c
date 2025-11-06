@@ -11,44 +11,42 @@ int stock[MAX_PRODUCTOS];
 
 int main() {
     int opcion;
-    float total, promedio;
-    char masCaro[MAX_NOMBRE], masBarato[MAX_NOMBRE];
-    float precioMax, precioMin;
-
-    printf("BIENVENIDO AL SISTEMA DE INVENTARIO\n");
 
     do {
-        mostrarMenu(&opcion);
+        opcion = mostrarMenu();
 
         switch (opcion) {
             case 1:
-                registrarProductos(&cantidad, nombres, precios, MAX_PRODUCTOS, stock);
+                cantidad = registrarProductos(cantidad, nombres, precios, MAX_PRODUCTOS, stock);
                 break;
 
             case 2:
-             
                 break;
 
             case 3:
-                if (cantidad == 0) printf("No hay productos.\n");
-                else {
-                    encontrarExtremos(precios, nombres, cantidad, masCaro, &precioMax, masBarato, &precioMin);
-                    printf("Más caro: %s - $%.2f\n", masCaro, precioMax);
-                    printf("Más barato: %s - $%.2f\n", masBarato, precioMin);
+                if (cantidad == 0) {
+                    printf("No hay productos.\n");
+                } else {
+                    char masCaro[MAX_NOMBRE], masBarato[MAX_NOMBRE];
+                    float resultadosCaro[1], resultadosBarato[1];
+                    encontrarExtremos(precios, nombres, cantidad, masCaro, resultadosCaro, masBarato, resultadosBarato);
+                    printf("Más caro: %s - $%.2f\n", masCaro, resultadosCaro[0]);
+                    printf("Más barato: %s - $%.2f\n", masBarato, resultadosBarato[0]);
                 }
                 break;
 
             case 4:
-                if (cantidad == 0) printf("No hay productos.\n");
-                else {
-                    calcularTotalYPromedio(precios, cantidad, stock, &total, &promedio);
-                    printf("Total: $%.2f\n", total);
-                    printf("Promedio: $%.2f\n", promedio);
+                if (cantidad == 0) {
+                    printf("No hay productos.\n");
+                } else {
+                    float resultados[2];
+                    calcularTotalYPromedio(precios, cantidad, stock, resultados);
+                    printf("Total: $%.2f\n", resultados[0]);
+                    printf("Promedio: $%.2f\n", resultados[1]);
                 }
                 break;
 
             case 5:
-                printf("¡Adiós!\n");
                 break;
 
             default:
