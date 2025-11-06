@@ -2,7 +2,7 @@
 #include "funciones.h"
 #define MAX_NOMBRE 25
 
-int compararCadenas(const char *cad1, const char *cad2) {
+int compararCadenas(const char cad1, const char cad2) {
     int i = 0;
     while (cad1[i] != '\0' && cad2[i] != '\0') {
         if (cad1[i] != cad2[i]) return 0;
@@ -11,7 +11,7 @@ int compararCadenas(const char *cad1, const char *cad2) {
     return (cad1[i] == '\0' && cad2[i] == '\0');
 }
 
-void copiarCadena(char *destino, const char *origen, int tamMax) {
+void copiarCadena(char destino, const char origen, int tamMax) {
     int i = 0;
     while (origen[i] != '\0' && i < tamMax - 1) {
         destino[i] = origen[i];
@@ -20,7 +20,7 @@ void copiarCadena(char *destino, const char *origen, int tamMax) {
     destino[i] = '\0';
 }
 
-void mostrarMenu(int *opcion) {
+void mostrarMenu(int opcion) {
     printf("\n============================================\n");
     printf("       SOFTWARE DE GESTIÓN DE INVENTARIO\n");
     printf("============================================\n");
@@ -33,17 +33,17 @@ void mostrarMenu(int *opcion) {
     scanf("%d", opcion);
 }
 
-void registrarProductos(int *cantidad, char nombres[][MAX_NOMBRE], float precios[], int max, int stock[]) {
+void registrarProductos(int cantidad, char nombres[][MAX_NOMBRE], float precios[], int max, int stock[]) {
     printf("¿Cuántos productos desea registrar? (1-%d): ", max);
     scanf("%d", cantidad);
 
-    if (*cantidad < 1 || *cantidad > max) {
+    if (*cantidad < 1 || cantidad > max) {
         printf("Error: cantidad inválida (debe ser entre 1 y %d).\n", max);
-        *cantidad = 0;
+        cantidad = 0;
         return;
     }
 
-    for (int i = 0; i < *cantidad; i++) {
+    for (int i = 0; i < cantidad; i++) {
         printf("\n--- Producto %d ---\n", i + 1);
         
         printf("  Nombre: ");
@@ -69,45 +69,45 @@ void registrarProductos(int *cantidad, char nombres[][MAX_NOMBRE], float precios
         } while (temp_precio < 0);
         precios[i] = temp_precio;
     }
-    printf("¡%d productos registrados con éxito!\n", *cantidad);
+    printf("¡%d productos registrados con éxito!\n", cantidad);
 }
 
-void calcularTotalYPromedio(float precios[], int cantidad, int stock[], float *total, float *promedio) {
-    *total = 0.0f;
+void calcularTotalYPromedio(float precios[], int cantidad, int stock[], float total, float promedio) {
+    total = 0.0f;
     for (int i = 0; i < cantidad; i++) {
-        *total += precios[i] * stock[i];
+        total += precios[i] * stock[i];
     }
-    *promedio = (cantidad > 0) ? (*total / cantidad) : 0.0f;
+    promedio = (cantidad > 0) ? (total / cantidad) : 0.0f;
 }
 
 void encontrarExtremos(float precios[], char nombres[][MAX_NOMBRE], int cantidad, 
-                       char *masCaro, float *precioMax, char *masBarato, float *precioMin) {
+                       char masCaro, float precioMax, char masBarato, float precioMin) {
     if (cantidad == 0) {
         copiarCadena(masCaro, "N/A", MAX_NOMBRE);
         copiarCadena(masBarato, "N/A", MAX_NOMBRE);
-        *precioMax = *precioMin = 0.0f;
+        precioMax = precioMin = 0.0f;
         return;
     }
 
     int idxMax = 0, idxMin = 0;
-    *precioMax = precios[0];
-    *precioMin = precios[0];
+    precioMax = precios[0];
+    precioMin = precios[0];
     copiarCadena(masCaro, nombres[0], MAX_NOMBRE);
     copiarCadena(masBarato, nombres[0], MAX_NOMBRE);
 
     for (int i = 1; i < cantidad; i++) {
-        if (precios[i] > *precioMax) {
-            *precioMax = precios[i];
+        if (precios[i] > precioMax) {
+            precioMax = precios[i];
             copiarCadena(masCaro, nombres[i], MAX_NOMBRE);
         }
-        if (precios[i] < *precioMin) {
-            *precioMin = precios[i];
+        if (precios[i] < precioMin) {
+            precioMin = precios[i];
             copiarCadena(masBarato, nombres[i], MAX_NOMBRE);
         }
     }
 }
 
-void buscarProducto(char nombres[][MAX_NOMBRE], float precios[], int cantidad, int stock[], char *busqueda) {
+void buscarProducto(char nombres[][MAX_NOMBRE], float precios[], int cantidad, int stock[], char busqueda) {
     printf("Nombre a buscar: ");
     scanf("%s", busqueda);
 
@@ -118,4 +118,5 @@ void buscarProducto(char nombres[][MAX_NOMBRE], float precios[], int cantidad, i
         }
     }
     printf("Producto no encontrado.\n");
+
 }
