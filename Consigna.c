@@ -27,8 +27,7 @@ int main() {
                 break;
 
             case 2:
-                if (cantidad == 0) printf("No hay productos.\n");
-                else buscarProducto(nombres, precios, cantidad, stock, busqueda);
+             
                 break;
 
             case 3:
@@ -59,4 +58,6 @@ int main() {
     } while (opcion != 5);
 
     return 0;
+}
+
 }
