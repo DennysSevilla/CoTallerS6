@@ -21,6 +21,14 @@ int main() {
                 break;
 
             case 2:
+                if (cantidad == 0) {
+                printf("No hay productos registrados.\n");
+                } else {
+                char nombreBuscado[MAX_NOMBRE];
+                printf("Ingrese el nombre del producto a buscar: ");
+                scanf("%s", nombreBuscado);
+                buscarProducto(nombreBuscado, nombres, precios, stock, cantidad);
+                }
                 break;
 
             case 3:
