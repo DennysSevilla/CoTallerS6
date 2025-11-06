@@ -2,24 +2,6 @@
 #include "funciones.h"
 #define MAX_NOMBRE 25
 
-int compararCadenas(const char cad1, const char cad2) {
-    int i = 0;
-    while (cad1[i] != '\0' && cad2[i] != '\0') {
-        if (cad1[i] != cad2[i]) return 0;
-        i++;
-    }
-    return (cad1[i] == '\0' && cad2[i] == '\0');
-}
-
-void copiarCadena(char destino, const char origen, int tamMax) {
-    int i = 0;
-    while (origen[i] != '\0' && i < tamMax - 1) {
-        destino[i] = origen[i];
-        i++;
-    }
-    destino[i] = '\0';
-}
-
 void mostrarMenu(int opcion) {
     printf("\n============================================\n");
     printf("       SOFTWARE DE GESTIÓN DE INVENTARIO\n");
@@ -37,7 +19,7 @@ void registrarProductos(int cantidad, char nombres[][MAX_NOMBRE], float precios[
     printf("¿Cuántos productos desea registrar? (1-%d): ", max);
     scanf("%d", cantidad);
 
-    if (*cantidad < 1 || cantidad > max) {
+    if (cantidad < 1 || cantidad > max) {
         printf("Error: cantidad inválida (debe ser entre 1 y %d).\n", max);
         cantidad = 0;
         return;
@@ -105,18 +87,4 @@ void encontrarExtremos(float precios[], char nombres[][MAX_NOMBRE], int cantidad
             copiarCadena(masBarato, nombres[i], MAX_NOMBRE);
         }
     }
-}
-
-void buscarProducto(char nombres[][MAX_NOMBRE], float precios[], int cantidad, int stock[], char busqueda) {
-    printf("Nombre a buscar: ");
-    scanf("%s", busqueda);
-
-    for (int i = 0; i < cantidad; i++) {
-        if (compararCadenas(nombres[i], busqueda)) {
-            printf("Encontrado: %s | Precio: $%.2f | Stock: %d\n", nombres[i], precios[i], stock[i]);
-            return;
-        }
-    }
-    printf("Producto no encontrado.\n");
-
 }
