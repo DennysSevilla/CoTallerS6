@@ -96,3 +96,32 @@ void encontrarExtremos(float precios[], char nombres[][MAX_NOMBRE], int cantidad
     }
 }
 
+void buscarProducto(char nombreBuscado[], char nombres[][MAX_NOMBRE], float precios[], int stock[], int cantidad) {
+    int encontrado = 0;
+
+    for (int i = 0; i < cantidad; i++) {
+        int esIgual = 1;
+        for (int j = 0; j < MAX_NOMBRE; j++) {
+            if (nombres[i][j] != nombreBuscado[j]) {
+                esIgual = 0;
+                break;
+            }
+            if (nombres[i][j] == '\0' && nombreBuscado[j] == '\0') {
+                break;
+            }
+        }
+
+        if (esIgual) {
+            printf("Producto encontrado:\n");
+            printf("  Nombre: %s\n", nombres[i]);
+            printf("  Precio: $%.2f\n", precios[i]);
+            printf("  Stock: %d\n", stock[i]);
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        printf("Producto no encontrado.\n");
+    }
+}
