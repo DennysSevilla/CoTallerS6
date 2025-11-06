@@ -14,7 +14,6 @@ int main() {
     float total, promedio;
     char masCaro[MAX_NOMBRE], masBarato[MAX_NOMBRE];
     float precioMax, precioMin;
-    char busqueda[MAX_NOMBRE];
 
     printf("BIENVENIDO AL SISTEMA DE INVENTARIO\n");
 
@@ -58,6 +57,4 @@ int main() {
     } while (opcion != 5);
 
     return 0;
-}
-
 }
